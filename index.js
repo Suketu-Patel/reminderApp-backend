@@ -52,7 +52,7 @@ app.post("/subscription", subscriptionHandler.handlePushNotificationSubscription
 app.get("/subscription/:id", subscriptionHandler.sendPushNotification);
 
 
-app.post('/setTimer', (req, res) => {
+app.post('/setTimer', async (req, res) => {
     const timerVals = req.body.expirationDate.split(" ");
     const [minute, hour, date, month, day] = timerVals;
     const id = minute+hour+date+month+day+req.body.title;
@@ -60,7 +60,7 @@ app.post('/setTimer', (req, res) => {
     cronTasks.push({
         // This id will create a collision with similar date reminders
         id:id,
-        schedule: cron.schedule(`0 ${minute} ${hour} ${date} ${month} ${day}`, () => {
+        schedule: await cron.schedule(`0 ${minute} ${hour} ${date} ${month} ${day}`, () => {
             
             subscriptionHandler.sendPushNotification(req,res,sub_id)
             
