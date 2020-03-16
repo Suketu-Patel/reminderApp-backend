@@ -72,7 +72,6 @@ app.post('/setTimer', async (req, res) => {
         }
         )
     });
-    res.end();
 })
 
 app.get('/getCronTasks', (req, res) => {
