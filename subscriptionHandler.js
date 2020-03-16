@@ -23,16 +23,18 @@ const handlePushNotificationSubscription = (req,res) =>{
     res.status(201).json({id:subscriptionId});
 }
 
-const sendPushNotification=(req,res,id) => {
+const sendPushNotification=(req,res,id,data) => {
     const subscriptionId = id;
     const pushSubscription = subscriptions[subscriptionId]
+    const title = req.body.title;
+    // const text = "sample text"
     console.log(subscriptions)
     webpush
     .sendNotification(
       pushSubscription,
       JSON.stringify({
-        title: "Reminder!",
-        text: "Sample reminder",
+        title: title||"Reminder!",
+        text: text||"Sample reminder",
         image: "https://png2.cleanpng.com/sh/0d805b4c80129092c1bde780d50a75df/L0KzQYi4UsE4N5U5TZGAYUO5cYe4gcE6OJc6TpCAMEWzRIqCUME2OWQ6S6IEMEa0QIOATwBvbz==/5a36a61a190f56.5050499015135309061027.png",
         tag: "Reminder",
         url: "https://www.google.com"
