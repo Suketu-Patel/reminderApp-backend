@@ -10,8 +10,7 @@ console.log(subscriptionHandler.handlePushNotificationSubscription)
 
 const app = express();
 
-const HOSTNAME = '127.0.0.1';
-const PORT = 8000;
+const PORT = process.env.PORT ||8000;
 
 let cronTasks = [];
 
