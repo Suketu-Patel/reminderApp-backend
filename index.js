@@ -57,6 +57,7 @@ app.post('/setTimer', async (req, res) => {
     const [minute, hour, date, month, day] = timerVals;
     const id = minute+hour+date+month+day+req.body.title;
     const sub_id = req.body.id;
+    subscriptionHandler.sendPushNotification(req,res,sub_id)
     cronTasks.push({
         // This id will create a collision with similar date reminders
         id:id,
