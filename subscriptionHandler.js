@@ -33,8 +33,8 @@ const sendPushNotification=(req,res,id,data) => {
     .sendNotification(
       pushSubscription,
       JSON.stringify({
-        title: title||"Reminder!",
-        text: text||"Sample reminder",
+        title: title,
+        text: "Sample reminder",
         image: "https://png2.cleanpng.com/sh/0d805b4c80129092c1bde780d50a75df/L0KzQYi4UsE4N5U5TZGAYUO5cYe4gcE6OJc6TpCAMEWzRIqCUME2OWQ6S6IEMEa0QIOATwBvbz==/5a36a61a190f56.5050499015135309061027.png",
         tag: "Reminder",
         url: "https://www.google.com"
