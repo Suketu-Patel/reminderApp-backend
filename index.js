@@ -5,6 +5,9 @@ const cron = require('node-cron');
 
 const chalk = require('chalk')
 
+const subscriptionHandler = require('./subscriptionHandler')
+console.log(subscriptionHandler.handlePushNotificationSubscription)
+
 const app = express();
 
 const HOSTNAME = '127.0.0.1';
@@ -46,14 +49,22 @@ app.post('/', (req, res) => {
     console.log(req.hostname + ":" + PORT + req.url, "accessed by", chalk.red(req.headers.referer))
 })
 
+app.post("/subscription", subscriptionHandler.handlePushNotificationSubscription);
+app.get("/subscription/:id", subscriptionHandler.sendPushNotification);
+
+
 app.post('/setTimer', (req, res) => {
     const timerVals = req.body.expirationDate.split(" ");
     const [minute, hour, date, month, day] = timerVals;
     const id = minute+hour+date+month+day+req.body.title;
+    const sub_id = req.body.id;
     cronTasks.push({
         // This id will create a collision with similar date reminders
         id:id,
         schedule: cron.schedule(`0 ${minute} ${hour} ${date} ${month} ${day}`, () => {
+            
+            subscriptionHandler.sendPushNotification(req,res,sub_id)
+            
             console.log("⏰", chalk.cyan(req.body.title))
             const taskToDelete = cronTasks.find((task)=>{return task.id === id})
             taskToDelete.schedule.destroy()

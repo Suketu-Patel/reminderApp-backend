@@ -12,7 +12,9 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "web-push": "^3.4.3"
   }
 }
